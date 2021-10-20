@@ -20,6 +20,10 @@ export default {
 </script>
 
 <style scoped>
+p{
+  font-size: 20px;
+  font-weight: 400;
+}
 h2 {
   margin: 0 20px 0 20px;
   padding: 0;
@@ -55,8 +59,7 @@ p{
   text-align: center;
 }
 h1{
-  color: white;
-  text-shadow: 0 0 3px black;
+  color: black;
 }
 @media screen and (max-width: 580px) {
   h2 {
@@ -77,8 +80,7 @@ h1{
 
   .menu-cont strong {
     margin: 10px;
-    color: white;
-    text-shadow: 0 0 2px black;
+    color: black;
   }
 }
 @media screen and (max-width: 390px){

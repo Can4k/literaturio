@@ -1,12 +1,24 @@
 <template>
-  <div class="cont">
-      <a target="_blank" href="https://ilibrary.ru/text/69/index.html"><strong>ПРЕСТУПЛЕНИЕ И НАКАЗАНИЕ</strong></a><p/>
-      <a target="_blank" href="https://ilibrary.ru/text/465/p.1/index.html"><strong>БОРИС ГОДУНОВ</strong></a><p/>
-      <a target="_blank" href="https://ilibrary.ru/text/11/index.html"><strong>ВОЙНА И МИР</strong></a><p/>
-      <a target="_blank" href="https://ilibrary.ru/text/78/index.html"><strong>МЕРТВЫЕ ДУШИ</strong></a><p/>
-      <a target="_blank" href="https://ilibrary.ru/text/96/index.html"><strong>ОТЦЫ И ДЕТИ</strong></a><p/>
-      <a target="_blank" href="https://ilibrary.ru/text/94/index.html"><strong>ИДИОТ</strong></a><p/>
+  <div>
+    <div class="cont__header">
+      <h1>КНИГИ</h1>
+    </div>
+    <div class="app">
+      <a target="_blank" href="https://ilibrary.ru/text/78/index.html">
+        <span>
+          <img src="@/assets/gogol.jpg" alt="">
+          <h3>МЕРТВЫЕ ДУШИ</h3>
+        </span>
+      </a>
+      <a target="_blank" href="https://ilibrary.ru/text/69/index.html">
+        <span>
+          <img src="@/assets/dostoevsky.jpg" alt="">
+          <h3>ПРИСТУПЛЕНИЕ И НАКАЗАНИЕ</h3>
+        </span>
+      </a>
+    </div>
   </div>
+
 </template>
 
 <script>
@@ -16,56 +28,29 @@ export default {
 </script>
 
 <style scoped>
-h2 {
-  margin: 0 20px 0 20px;
-  padding: 0;
+.app {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
-.cont {
-  padding: 5px;
-  margin-top: 20px;
-}
-
-.cont:first-child{
- margin-top: 100px;
-}
-
-h1 {
+h1{
   text-align: center;
-  margin: 10px 0 10px 0;
+  margin: 0;
 }
 
-.cont {
+h3 {
   text-align: center;
-  position: relative;
-  left: 50%;
-  transform: translate(-50%);
-  max-width: 800px;
-}
-
-p {
-  text-align: center;
-}
-
-h1 {
-  color: white;
-  text-shadow: 0 0 3px black;
-}
-a{
-  color: black;
-  text-shadow: 0 0 100px black;
-}
-</style>
-
-<style scoped>
-a:hover{
-  color: grey;
-}
-a:active{
+  font-size: 25px;
   color: black;
 }
-a{
-  color: black;
+.cont__header{
+  background-color: #f3f3f3;
+  padding: 100px 10px 100px 10px;
+  font-size: 30px;
+  box-shadow: 0 0 1px black;
+  margin-bottom: 10px;
 }
 </style>
 
