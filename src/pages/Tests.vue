@@ -15,43 +15,83 @@
         </template>
       </test-component>
     </div>
-    <transition name="fade">
-      <div v-show="isFirstOpen" class="first__test">
-        <h1>В РАЗРАБОТКЕ</h1>
-        <button @click="isFirstOpen=false" style="width: 50px">ЗАКРЫТЬ</button>
-      </div>
-    </transition>
-    <transition name="fade">
-      <div v-show="isSecondOpen" class="first__test">
-        <h1>В РАЗРАБОТКЕ</h1>
-        <button @click="isSecondOpen=false" style="width: 50px">ЗАКРЫТЬ</button>
-      </div>
-    </transition>
+    <div class="container" v-show="isFirstOpen">
+      <transition name="fade">
+        <div v-show="isFirstOpen" class="first__test">
+            <testing
+                :key="items[key].id"
+                :item="items[key]"
+                @next="next"
+                @close="isFirstOpen = false"
+            />
+        </div>
+      </transition>
+    </div>
   </div>
 </template>
 
 <script>
 import TestComponent from "@/components/Test";
+import Testing from "@/components/Testing";
 
 export default {
   name: "Tests",
   components: {
+    Testing,
     TestComponent
   },
   data() {
     return {
       isFirstOpen: false,
-      isSecondOpen: false
+      isSecondOpen: false,
+      picked: 0,
+      key: 0,
+      items: [
+        {
+          id: 1,
+          question: "Как зовут сестру Раскольникова?",
+          ans1: "Софья",
+          ans2: "Катирина",
+          ans3: "Авдотья",
+        },
+        {
+          id: 2,
+          question: "Сколько лет матери Раскольникова в начала романа?",
+          ans1: "43",
+          ans2: "45",
+          ans3: "53",
+        },
+        {
+          id: 3,
+          question: "Кто становится жертвой Раскольникова помимо самой старухи-процентщицы?",
+          ans1: "Дочь старухи",
+          ans2: "Сестра старухи",
+          ans3: "Племяница старухи",
+        },
+      ]
     }
   },
   methods: {
     firstClicked() {
       console.log("First");
-      if(!this.isSecondOpen) this.isFirstOpen = true;
+      if (!this.isSecondOpen) this.isFirstOpen = true;
+      window.scrollTo({top: -100, behavior: 'smooth'});
+      this.$emit("close");
     },
     secondClicked() {
       console.log("Second");
-      if(!this.isFirstOpen) this.isSecondOpen = true;
+      if (!this.isFirstOpen) this.isSecondOpen = true;
+      window.scrollTo({top: -100, behavior: 'smooth'});
+      this.$emit("close");
+    },
+    next(){
+      console.log(this.key);
+      if(this.key === this.items.length - 1){
+        this.isFirstOpen = false;
+        this.key=0;
+      } else{
+        this.key++;
+      }
     }
   }
 }
@@ -78,21 +118,53 @@ export default {
   justify-content: center;
 }
 
+p{
+  font-size: 20px;
+  text-align: center;
+  margin: 0;
+  font-weight: 700;
+}
+p::first-letter{
+  font-weight: 1000;
+  font-size: 25px;
+}
+.slot__cont{
+  display: flex;
+  padding: 10px;
+  flex-direction: column;
+}
+.radio__cont{
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: flex-start;
+}
+.radio{
+  padding: 2px 0 2px 0;
+}
 * {
   font-family: 'Amatic SC', cursive;
 }
 
 .first__test {
+  padding: 10px;
   top: 77px;
   position: absolute;
   left: 50%;
   transform: translate(-50%);
-  width: 400px;
-  height: 300px;
-  background-color: bisque;
+  background-color: white;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  border: 1px solid black;
+}
+
+.container{
+  background-color: rgba(1, 1, 1, 0.5);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
 }
 
 .fade-enter-active {

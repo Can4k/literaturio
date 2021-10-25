@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <div class="header">
-      <a href="/#/"><h2>ЛИТЕРАТУРИО</h2></a>
+      <a href="/#/"><h2 @click="isMenuOpen=false">ЛИТЕРАТУРИО</h2></a>
       <span class="btn-cont">
          <img class="ico" src="@/assets/menuico.png" @click="isMenuOpen=!isMenuOpen" alt="123">
       </span>
@@ -14,7 +14,7 @@
         </div>
       </div>
     </transition>
-    <router-view></router-view>
+    <router-view @close="isMenuOpen=false"></router-view>
   </div>
 </template>
 
