@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../pages/Home.vue'
-import Books from "@/pages/Books";
-import Tests from "@/pages/Tests";
+import HomePage from '../pages/HomePage.vue'
+import BooksPage from "@/pages/BooksPage";
+import TestsPage from "@/pages/TestsPage";
 
 Vue.use(VueRouter)
 
@@ -10,17 +10,17 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: HomePage
   },
   {
     path: '/books',
     name: 'Books',
-    component: Books
+    component: BooksPage
   },
   {
     path: '/tests',
     name: 'Tests',
-    component: Tests
+    component: TestsPage
   }
 ]
 

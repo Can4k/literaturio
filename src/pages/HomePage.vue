@@ -1,7 +1,7 @@
 <template>
   <div class="cont">
     <h1>Искусство писать предшествует искусству мыслить...</h1>
-    <div class="def">
+    <div class="description">
       <p>Сайт literaturio.firebase.com дает доступ к тестам по литературе и к некоторым книгам,
         находящимся в открытом доступе.
         На сайте вы найдете разнообразные тесты, которые помогут вам узнать, насколько вам знакома та, или иная книга.
@@ -9,7 +9,7 @@
         Яковлев Александр, Георгий Возмилов, Андрей Барышников, Григорий Топорец, Матвей Жиляев и другие.
       </p>
     </div>
-    <img class="book1" src="@/assets/books1.jpg" alt="">
+    <img class="book" src="@/assets/books1.jpg" alt="">
   </div>
 </template>
 
@@ -28,7 +28,7 @@ h2 {
   margin: 0 20px 0 20px;
   padding: 0;
 }
-.def {
+.description {
   max-width: 800px;
 }
 
@@ -51,7 +51,7 @@ h1 {
   transform: translate(-50%);
   max-width: 800px;
 }
-.book1 {
+.book {
   width: 100%;
   border-radius: 20px;
 }
@@ -86,9 +86,6 @@ h1{
 @media screen and (max-width: 390px){
   h2{
     font-size: 20px;
-  }
-  i{
-    font-size: 10px;
   }
 }
 </style>

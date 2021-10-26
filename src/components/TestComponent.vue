@@ -1,11 +1,20 @@
 <template>
-  <div class="cont" @click="clicked">
+  <div class="cont">
     <div class="image">
       <slot name="img"/>
     </div>
-    <div class="net">
+    <div class="form">
       <h2>{{name}}</h2>
       <slot name="desc"/>
+      <vs-button
+          style="font-family: 'Times New Roman', serif; padding: 1px 40px 0 40px; z-index: 0"
+          v-show="true" :active-disabled="!isActive"
+          border
+          flat
+          :block="false"
+          @click="clicked"
+      >Открыть</vs-button>
+      <h5 v-show="sueta > 0">{{sueta}} / 20</h5>
     </div>
   </div>
 </template>
@@ -15,13 +24,15 @@ export default {
   name: "test-component",
   props: {
     name: String,
+    isActive: Boolean,
+    sueta: Number
   },
   methods: {
     clicked(){
       console.log("clicked");
       this.$emit("clicked");
     }
-  }
+  },
 }
 </script>
 
@@ -29,7 +40,7 @@ export default {
 .cont{
   margin: 10px 25px 10px 25px;
   padding: 5px;
-  background-color: #f3f3f3;
+  background-color: #ffdb95;
   width: 500px;
   border-radius: 10px;
   border: 1px solid black;
@@ -48,12 +59,17 @@ h2{
 }
 .image{
   height: 200px;
-  border-radius: 20px;
 }
 body{
   background-color: #f3f3f3;
 }
-.cont:hover{
-  transform: scale(1.02);
+.form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+h5{
+  margin: 4px;
+  color: darkgreen;
 }
 </style>

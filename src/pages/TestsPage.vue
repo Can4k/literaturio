@@ -4,12 +4,12 @@
       <h1>ТЕСТЫ ПО ЛИТЕРАТУРЕ</h1>
     </div>
     <div class="cont__tests">
-      <test-component name="Преступление и наказание" @clicked="firstClicked">
+      <test-component :sueta="keys.first" :isActive="true" name="Преступление и наказание" @clicked="firstClicked">
         <template slot="img">
           <img src="@/assets/dostoevsky.jpg" alt="123" class="image">
         </template>
       </test-component>
-      <test-component name="Мертвые души" @clicked="secondClicked">
+      <test-component :isActive="false" name="Мертвые души" @clicked="secondClicked">
         <template slot="img">
           <img src="@/assets/gogol.jpg" alt="123" class="image">
         </template>
@@ -18,10 +18,10 @@
     <div class="container" v-show="isFirstOpen">
       <transition name="fade">
         <div v-show="isFirstOpen" class="first__test">
-            <testing
-                :key="items[key].id"
-                :item="items[key]"
-                @next="next"
+            <question
+                :key="first_test[keys.first].id"
+                :questionItem="first_test[keys.first]"
+                @next="nextFirst"
                 @close="isFirstOpen = false"
             />
         </div>
@@ -31,12 +31,14 @@
 </template>
 
 <script>
-import TestComponent from "@/components/Test";
-import Testing from "@/components/Testing";
+import TestComponent from "@/components/TestComponent";
+import Testing from "@/components/Question";
+import Question from "@/components/Question";
 
 export default {
-  name: "Tests",
+  name: "TestsPage",
   components: {
+    Question,
     Testing,
     TestComponent
   },
@@ -45,14 +47,18 @@ export default {
       isFirstOpen: false,
       isSecondOpen: false,
       picked: 0,
-      key: 0,
-      items: [
+      keys: {
+        first: 0,
+        second: 0
+      },
+      first_test: [
         {
           id: 1,
           question: "Как зовут сестру Раскольникова?",
           ans1: "Софья",
           ans2: "Катирина",
           ans3: "Авдотья",
+          testId: 1
         },
         {
           id: 2,
@@ -60,6 +66,7 @@ export default {
           ans1: "43",
           ans2: "45",
           ans3: "53",
+          testId: 1
         },
         {
           id: 3,
@@ -67,31 +74,41 @@ export default {
           ans1: "Дочь старухи",
           ans2: "Сестра старухи",
           ans3: "Племяница старухи",
+          testId: 1
         },
       ]
     }
   },
   methods: {
     firstClicked() {
-      console.log("First");
-      if (!this.isSecondOpen) this.isFirstOpen = true;
+      if (!this.isSecondOpen){
+        this.isFirstOpen = true;
+      }
       window.scrollTo({top: -100, behavior: 'smooth'});
       this.$emit("close");
     },
     secondClicked() {
-      console.log("Second");
-      if (!this.isFirstOpen) this.isSecondOpen = true;
+      if (!this.isFirstOpen) {
+        this.isSecondOpen = true;
+      }
       window.scrollTo({top: -100, behavior: 'smooth'});
       this.$emit("close");
     },
-    next(){
-      console.log(this.key);
-      if(this.key === this.items.length - 1){
-        this.isFirstOpen = false;
-        this.key=0;
+    nextFirst(data){
+      localStorage.first += data.picked;
+      if(this.keys.first === this.first_test.length - 1){
+
       } else{
-        this.key++;
+        this.keys.first++;
       }
+    }
+  },
+  mounted() {
+    if(localStorage.getItem("first") === null){
+      localStorage.first = "";
+    }
+    else if(localStorage.first.length < 3){
+      this.keys.first = localStorage.first.length;
     }
   }
 }
@@ -116,6 +133,7 @@ export default {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 }
 
 p{
@@ -128,27 +146,13 @@ p::first-letter{
   font-weight: 1000;
   font-size: 25px;
 }
-.slot__cont{
-  display: flex;
-  padding: 10px;
-  flex-direction: column;
-}
-.radio__cont{
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  align-items: flex-start;
-}
-.radio{
-  padding: 2px 0 2px 0;
-}
 * {
   font-family: 'Amatic SC', cursive;
 }
 
 .first__test {
   padding: 10px;
-  top: 77px;
+  top: 200px;
   position: absolute;
   left: 50%;
   transform: translate(-50%);
@@ -156,7 +160,7 @@ p::first-letter{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  border: 1px solid black;
+  border-radius: 30px;
 }
 
 .container{
@@ -189,6 +193,17 @@ p::first-letter{
   }
   100% {
     transform: scale(1, 1) translate(-50%);
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .first__test{
+    width: 800px;
+  }
+}
+@media screen and (max-width: 500px){
+  .container{
+    height: 300%;
   }
 }
 </style>

@@ -1,20 +1,31 @@
 <template>
   <div class="app">
-    <div class="header">
-      <a href="/#/"><h2 @click="isMenuOpen=false">ЛИТЕРАТУРИО</h2></a>
-      <span class="btn-cont">
-         <img class="ico" src="@/assets/menuico.png" @click="isMenuOpen=!isMenuOpen" alt="123">
+    <vs-dialog blur prevent-close not-close v-model="isNewUser">
+      <div class="dialog__header">
+        <h2>Привет! Впервые на нашем сайте? Как тебя зовут?</h2>
+      </div>
+      <div class="form">
+        <vs-input style='font-family:"Times New Roman", serif' state="success" v-model="username"></vs-input>
+        <vs-button style="font-family: 'Cambria', serif" @click="login">
+          Запомнить
+        </vs-button>
+      </div>
+    </vs-dialog>
+    <div class="app__header">
+      <a href="/#/"><h2 @click="isMenuOpen=false">LITERATURIO</h2></a>
+      <span class="buttons__container">
+         <img class="menu__icon" src="@/assets/menuico.png" @click="isMenuOpen=!isMenuOpen" alt="Open menu">
       </span>
     </div>
     <transition name="fade">
       <div v-show="isMenuOpen" class="menu">
-        <div class="menu-cont">
+        <div class="menu__container">
           <a href="/#/tests" @click="isMenuOpen=!isMenuOpen"><strong>ПРОХОДИТЬ ТЕСТЫ</strong></a>
           <a href="/#/books" @click="isMenuOpen=!isMenuOpen"><strong>ЧИТАТЬ КНИГИ</strong></a>
         </div>
       </div>
     </transition>
-    <router-view @close="isMenuOpen=false"></router-view>
+    <router-view @close="isMenuOpen=false"/>
   </div>
 </template>
 
@@ -22,10 +33,22 @@
 export default {
   data() {
     return {
-      active: 'guide',
       isMenuOpen: false,
+      isNewUser: localStorage.getItem("name") === null,
+      username: ""
     }
   },
+  methods: {
+    login() {
+      localStorage.name = this.username;
+      this.isNewUser = false;
+    }
+  },
+  mounted() {
+    if (localStorage.getItem("name") === "") {
+      this.isNewUser = true;
+    }
+  }
 }
 </script>
 
@@ -46,6 +69,11 @@ export default {
   opacity: 1;
 }
 
+.form {
+  display: flex;
+  justify-content: center;
+}
+
 @keyframes move {
   0% {
     transform: scale(1, 0);
@@ -56,18 +84,14 @@ export default {
 }
 
 h2 {
-  margin: 0 20px 0 20px;
+  margin: 0 20px 0px 20px;
   padding: 0;
   font-family: 'Amatic SC', cursive;
-  font-size: 30px;
+  font-size: 40px;
+  text-align: center;
 }
 
-.header {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+.app__header {
   padding: 20px;
   background-color: cornflowerblue;
   color: white;
@@ -75,9 +99,7 @@ h2 {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  text-shadow: 0 0 3px black;
 }
-
 
 h1 {
   text-align: center;
@@ -93,9 +115,10 @@ p {
   position: absolute;
   background-color: darkgreen;
   width: 100%;
+  font-family: 'Amatic SC', cursive;
 }
 
-.menu-cont {
+.menu__container {
   font-size: 25px;
   padding: 10px;
   position: relative;
@@ -104,11 +127,11 @@ p {
   justify-content: center;
 }
 
-.menu-cont strong {
+.menu__container strong {
   margin: 0 10px 0 10px;
 }
 
-.ico{
+.menu__icon {
   width: 32px;
 }
 
@@ -117,32 +140,30 @@ p {
     margin: 0;
   }
 
-  .btn-cont {
+  .buttons__container {
     display: revert;
   }
-  .menu-cont strong {
+
+  .menu__container strong {
     color: white;
     text-shadow: 0 0 2px black;
     text-align: center;
   }
 
-  .header {
+  .app__header {
     justify-content: space-between;
   }
 }
 
-@media screen and (max-width: 390px) {
-  h2 {
-    font-size: 20px;
-  }
-
-  i {
-    font-size: 10px;
-  }
-}
 a {
   color: white;
   text-shadow: 0 0 3px black;
+}
+
+@media screen and (max-width: 390px) {
+  h2 {
+    font-size: 30px;
+  }
 }
 </style>
 
@@ -150,9 +171,5 @@ a {
 html, body {
   margin: 0;
   padding: 0;
-}
-
-*{
-  font-family: 'Amatic SC', cursive;
 }
 </style>
