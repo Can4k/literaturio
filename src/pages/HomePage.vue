@@ -21,8 +21,9 @@ export default {
 
 <style scoped>
 p{
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 400;
+  font-family: 'Amatic SC', cursive;
 }
 h2 {
   margin: 0 20px 0 20px;
@@ -43,6 +44,7 @@ i {
 h1 {
   text-align: center;
   margin: 10px 0 10px 0;
+  font-family: 'Amatic SC', cursive;
 }
 
 .cont {

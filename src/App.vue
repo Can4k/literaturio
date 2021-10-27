@@ -5,27 +5,31 @@
         <h2>Привет! Впервые на нашем сайте? Как тебя зовут?</h2>
       </div>
       <div class="form">
-        <vs-input style='font-family:"Times New Roman", serif' state="success" v-model="username"></vs-input>
+        <vs-input style='font-family:"Times New Roman", serif' state="success" v-model="$store.state.username"></vs-input>
         <vs-button style="font-family: 'Cambria', serif" @click="login">
           Запомнить
         </vs-button>
       </div>
     </vs-dialog>
     <div class="app__header">
-      <a href="/#/"><h2 @click="isMenuOpen=false">LITERATURIO</h2></a>
+      <a href="/#/"><h2 @click="isMenuOpen=false; menuNewStyle.transform = 'rotate(0deg)'">LITERATURIO</h2></a>
       <span class="buttons__container">
-         <img class="menu__icon" src="@/assets/menuico.png" @click="isMenuOpen=!isMenuOpen" alt="Open menu">
+         <img :style="menuNewStyle" class="menu__icon" src="@/assets/menuico.png" @click="clicked" alt="Open menu">
       </span>
     </div>
     <transition name="fade">
       <div v-show="isMenuOpen" class="menu">
         <div class="menu__container">
-          <a href="/#/tests" @click="isMenuOpen=!isMenuOpen"><strong>ПРОХОДИТЬ ТЕСТЫ</strong></a>
-          <a href="/#/books" @click="isMenuOpen=!isMenuOpen"><strong>ЧИТАТЬ КНИГИ</strong></a>
+          <a href="/#/tests" @click="clicked"><strong>ПРОХОДИТЬ ТЕСТЫ</strong></a>
+          <a href="/#/books" @click="clicked"><strong>ЧИТАТЬ КНИГИ</strong></a>
         </div>
       </div>
     </transition>
     <router-view @close="isMenuOpen=false"/>
+    <div class="studio__cont">
+      <img class="studio__logo" src="@/assets/telegramm.png" alt="123">
+      <p>Yakovleff Studio</p>
+    </div>
   </div>
 </template>
 
@@ -34,20 +38,34 @@ export default {
   data() {
     return {
       isMenuOpen: false,
-      isNewUser: localStorage.getItem("name") === null,
-      username: ""
+      isNewUser: localStorage.getItem("username") === null,
+      menuNewStyle: {
+        transform: ""
+      }
     }
   },
   methods: {
     login() {
-      localStorage.name = this.username;
-      this.isNewUser = false;
+      if(this.$store.state.username === ""){
+        alert("Имя не может быть пустым!")
+      }
+      else{
+        this.isNewUser = false;
+        localStorage.username = this.$store.state.username;
+      }
+    },
+    clicked() {
+      this.isMenuOpen = !this.isMenuOpen;
+      if(this.isMenuOpen){
+        this.menuNewStyle.transform = "rotate(90deg)";
+      } else{
+        this.menuNewStyle.transform = "rotate(0deg)";
+      }
     }
   },
   mounted() {
-    if (localStorage.getItem("name") === "") {
-      this.isNewUser = true;
-    }
+    if (localStorage.getItem("username") === "") this.isNewUser = true;
+    else this.username = localStorage.getItem('username');
   }
 }
 </script>
@@ -84,8 +102,7 @@ export default {
 }
 
 h2 {
-  margin: 0 20px 0px 20px;
-  padding: 0;
+  margin: 0 20px 0 20px;
   font-family: 'Amatic SC', cursive;
   font-size: 40px;
   text-align: center;
@@ -99,6 +116,26 @@ h2 {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+}
+
+.studio__cont{
+  width: 150px;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: Nunito Sans, sans-serif;
+  font-weight: 1000;
+  font-size: 12px;
+  color: grey;
+  margin-top: 300px;
+}
+
+.studio__logo{
+  width: 30px;
+  margin-right: 10px;
 }
 
 h1 {
@@ -133,6 +170,7 @@ p {
 
 .menu__icon {
   width: 32px;
+  transition-duration: 0.7s;
 }
 
 @media screen and (max-width: 580px) {
@@ -163,6 +201,11 @@ a {
 @media screen and (max-width: 390px) {
   h2 {
     font-size: 30px;
+  }
+}
+@media screen and (max-width: 1110px) {
+  .studio__cont{
+    margin-top: 10px;
   }
 }
 </style>

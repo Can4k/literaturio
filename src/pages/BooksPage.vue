@@ -38,12 +38,20 @@ export default {
 h1{
   text-align: center;
   margin: 0;
+  font-family: 'Amatic SC', cursive;
 }
 
 h3 {
   text-align: center;
   font-size: 25px;
   color: black;
+  font-family: 'Amatic SC', cursive;
+}
+span{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 .cont__header{
   background-color: #f3f3f3;

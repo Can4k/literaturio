@@ -43,7 +43,7 @@ export default {
   background-color: #ffdb95;
   width: 500px;
   border-radius: 10px;
-  border: 1px solid black;
+
   display: flex;
   align-items: center;
   justify-content: center;
