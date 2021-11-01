@@ -7,13 +7,13 @@
       <a target="_blank" href="https://ilibrary.ru/text/78/index.html">
         <span>
           <img src="@/assets/gogol.jpg" alt="">
-          <h3>МЕРТВЫЕ ДУШИ</h3>
+          <h3>Мертвые души</h3>
         </span>
       </a>
       <a target="_blank" href="https://ilibrary.ru/text/69/index.html">
         <span>
           <img src="@/assets/dostoevsky.jpg" alt="">
-          <h3>ПРИСТУПЛЕНИЕ И НАКАЗАНИЕ</h3>
+          <h3>Преступление и наказание</h3>
         </span>
       </a>
     </div>
@@ -35,17 +35,18 @@ export default {
   flex-wrap: wrap;
 }
 
-h1{
+.cont__header h1{
   text-align: center;
   margin: 0;
-  font-family: 'Amatic SC', cursive;
+  font-size: 30px;
+  font-family: roboto, segoe, helvetica, 'open sans', sans-serif;
 }
 
 h3 {
   text-align: center;
-  font-size: 25px;
+  font-size: 20px;
   color: black;
-  font-family: 'Amatic SC', cursive;
+  font-family: roboto, segoe, helvetica, 'open sans', sans-serif;
 }
 span{
   display: flex;
@@ -55,7 +56,7 @@ span{
 }
 .cont__header{
   background-color: #f3f3f3;
-  padding: 100px 10px 100px 10px;
+  padding: 50px 0 50px 0;
   font-size: 30px;
   box-shadow: 0 0 1px black;
   margin-bottom: 10px;

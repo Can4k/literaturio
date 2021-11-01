@@ -5,36 +5,36 @@
         <h2>Привет! Впервые на нашем сайте? Как тебя зовут?</h2>
       </div>
       <div class="form">
-        <vs-input style='font-family:"Times New Roman", serif' state="success" v-model="$store.state.username"></vs-input>
+        <vs-input style='font-family:"Times New Roman", serif' state="success"
+                  v-model="$store.state.username"></vs-input>
         <vs-button style="font-family: 'Cambria', serif" @click="login">
           Запомнить
         </vs-button>
       </div>
     </vs-dialog>
     <div class="app__header">
-      <a href="/#/"><h2 @click="isMenuOpen=false; menuNewStyle.transform = 'rotate(0deg)'">LITERATURIO</h2></a>
+      <h2 @click="toSite('')">LITERATURIO</h2>
       <span class="buttons__container">
-         <img :style="menuNewStyle" class="menu__icon" src="@/assets/menuico.png" @click="clicked" alt="Open menu">
+         <img :style="menuNewStyle" class="menu__icon" src="@/assets/menuico.png" @click="menuController"
+              alt="Open menu">
       </span>
     </div>
     <transition name="fade">
-      <div v-show="isMenuOpen" class="menu">
+      <div v-show="isMenuOpen" class="menu__buttons__container">
         <div class="menu__container">
-          <a href="/#/tests" @click="clicked"><strong>ПРОХОДИТЬ ТЕСТЫ</strong></a>
-          <a href="/#/books" @click="clicked"><strong>ЧИТАТЬ КНИГИ</strong></a>
+          <main-button @clicked="toSite('tests')" class="btn">ПРОХОДИТЬ ТЕСТЫ</main-button>
+          <main-button @clicked="toSite('books')" class="btn">ЧИТАТЬ КНИГИ</main-button>
         </div>
       </div>
     </transition>
     <router-view @close="isMenuOpen=false"/>
-    <div class="studio__cont">
-      <img class="studio__logo" src="@/assets/telegramm.png" alt="123">
-      <p>Yakovleff Studio</p>
-    </div>
   </div>
 </template>
 
 <script>
+import MainButton from "@/components/main-button";
 export default {
+  components: {MainButton},
   data() {
     return {
       isMenuOpen: false,
@@ -46,21 +46,26 @@ export default {
   },
   methods: {
     login() {
-      if(this.$store.state.username === ""){
+      if (this.$store.state.username === "") {
         alert("Имя не может быть пустым!")
-      }
-      else{
+      } else {
         this.isNewUser = false;
         localStorage.username = this.$store.state.username;
       }
     },
-    clicked() {
+    menuController() {
       this.isMenuOpen = !this.isMenuOpen;
       if(this.isMenuOpen){
         this.menuNewStyle.transform = "rotate(90deg)";
       } else{
         this.menuNewStyle.transform = "rotate(0deg)";
       }
+    },
+    toSite(name) {
+      if(this.isMenuOpen){
+        this.menuController();
+      }
+      document.location.href = '/#/' + name;
     }
   },
   mounted() {
@@ -91,7 +96,6 @@ export default {
   display: flex;
   justify-content: center;
 }
-
 @keyframes move {
   0% {
     transform: scale(1, 0);
@@ -100,61 +104,34 @@ export default {
     transform: scale(1, 1);
   }
 }
-
 h2 {
-  margin: 0 20px 0 20px;
-  font-family: 'Amatic SC', cursive;
+  font-family: roboto, segoe, helvetica, 'open sans', sans-serif;
+  margin: 25px 0 25px 15px;
+  font-weight: 600;
   font-size: 40px;
   text-align: center;
+  transition-duration: 0.2s;
+  user-select: none;
 }
-
+h2:hover {
+  transform: translate(0, -5px);
+}
 .app__header {
-  padding: 20px;
-  background-color: cornflowerblue;
+  background-color: #5e8bff;
   color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  padding: 0 10px 0 10px;
 }
-
-.studio__cont{
-  width: 150px;
-  position: relative;
-  left: 50%;
-  transform: translate(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: Nunito Sans, sans-serif;
-  font-weight: 1000;
-  font-size: 12px;
-  color: grey;
-  margin-top: 300px;
-}
-
-.studio__logo{
-  width: 30px;
-  margin-right: 10px;
-}
-
-h1 {
-  text-align: center;
-  margin: 10px 0 10px 0;
-}
-
-p {
-  text-align: center;
-}
-
-.menu {
+.menu__buttons__container {
+  font-family: roboto, segoe, helvetica, 'open sans', sans-serif;
   z-index: 1;
   position: absolute;
-  background-color: darkgreen;
+  background-color: #476479;
   width: 100%;
-  font-family: 'Amatic SC', cursive;
 }
-
 .menu__container {
   font-size: 25px;
   padding: 10px;
@@ -163,11 +140,10 @@ p {
   align-items: center;
   justify-content: center;
 }
-
-.menu__container strong {
-  margin: 0 10px 0 10px;
+.btn  {
+  margin-left: 5px;
+  margin-right: 5px;
 }
-
 .menu__icon {
   width: 32px;
   transition-duration: 0.7s;
@@ -175,19 +151,11 @@ p {
 
 @media screen and (max-width: 580px) {
   h2 {
-    margin: 0;
+    margin: 15px 15px 15px 15px;
   }
-
   .buttons__container {
     display: revert;
   }
-
-  .menu__container strong {
-    color: white;
-    text-shadow: 0 0 2px black;
-    text-align: center;
-  }
-
   .app__header {
     justify-content: space-between;
   }
@@ -203,8 +171,9 @@ a {
     font-size: 30px;
   }
 }
+
 @media screen and (max-width: 1110px) {
-  .studio__cont{
+  .studio__cont {
     margin-top: 10px;
   }
 }
@@ -214,5 +183,8 @@ a {
 html, body {
   margin: 0;
   padding: 0;
+}
+body::-webkit-scrollbar{
+  display: none;
 }
 </style>

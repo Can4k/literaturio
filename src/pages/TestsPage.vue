@@ -4,12 +4,12 @@
       <h1>ТЕСТЫ ПО ЛИТЕРАТУРЕ</h1>
     </div>
     <div class="cont__tests">
-      <test-component :sueta="keys.first" :isActive="true" name="Преступление и наказание" @clicked="firstClicked">
+      <test-component :testID=0 :questionID=0  @clicked="firstClicked">
         <template slot="img">
           <img src="@/assets/dostoevsky.jpg" alt="123" class="image">
         </template>
       </test-component>
-      <test-component :isActive="false" name="Мертвые души" @clicked="secondClicked">
+      <test-component :testID=1 :questionID=0  @clicked="secondClicked">
         <template slot="img">
           <img src="@/assets/gogol.jpg" alt="123" class="image">
         </template>
@@ -17,13 +17,25 @@
     </div>
     <div class="container" v-show="isFirstOpen">
       <transition name="fade">
-        <div v-show="isFirstOpen" class="first__test">
+        <div v-show="isFirstOpen" class="question__container">
             <question
-                :key="first_test[keys.first].id"
-                :questionItem="first_test[keys.first]"
+                :questionID=0
+                :testID=0
                 @next="nextFirst"
-                @close="isFirstOpen = false"
+                @close="modalClose"
             />
+        </div>
+      </transition>
+    </div>
+    <div class="container" v-show="isSecondOpen">
+      <transition name="fade">
+        <div v-show="isSecondOpen" class="question__container">
+          <question
+              :questionID=0
+              :testID=1
+              @next="nextFirst"
+              @close="modalClose"
+          />
         </div>
       </transition>
     </div>
@@ -50,33 +62,7 @@ export default {
       keys: {
         first: 0,
         second: 0
-      },
-      first_test: [
-        {
-          id: 1,
-          question: "Как зовут сестру Раскольникова?",
-          ans1: "Софья",
-          ans2: "Катирина",
-          ans3: "Авдотья",
-          testId: 1
-        },
-        {
-          id: 2,
-          question: "Сколько лет матери Раскольникова в начала романа?",
-          ans1: "43",
-          ans2: "45",
-          ans3: "53",
-          testId: 1
-        },
-        {
-          id: 3,
-          question: "Кто становится жертвой Раскольникова помимо самой старухи-процентщицы?",
-          ans1: "Дочь старухи",
-          ans2: "Сестра старухи",
-          ans3: "Племяница старухи",
-          testId: 1
-        },
-      ]
+      }
     }
   },
   methods: {
@@ -101,6 +87,15 @@ export default {
       } else{
         this.keys.first++;
       }
+    },
+    modalClose(data){
+      console.log(data);
+      if(data.testID === 0){
+        this.isFirstOpen = false;
+      }
+      if(data.testID === 1){
+        this.isSecondOpen = false;
+      }
     }
   },
   mounted() {
@@ -115,16 +110,19 @@ export default {
 </script>
 
 <style scoped>
-.cont h1 {
+.cont__header h1 {
   text-align: center;
   margin: 0;
+  font-family: roboto, segoe, helvetica, 'open sans', sans-serif;
+  font-size: 30px;
 }
 
 .cont__header {
   background-color: #f3f3f3;
-  padding: 100px 10px 100px 10px;
+  padding: 50px 10px 50px 10px;
   font-size: 30px;
   box-shadow: 0 0 1px black;
+  margin-bottom: 1px;
 }
 
 .cont__tests {
@@ -146,11 +144,8 @@ p::first-letter{
   font-weight: 1000;
   font-size: 25px;
 }
-* {
-  font-family: 'Amatic SC', cursive;
-}
 
-.first__test {
+.question__container {
   padding: 10px;
   top: 200px;
   position: absolute;
@@ -193,12 +188,6 @@ p::first-letter{
   }
   100% {
     transform: scale(1, 1) translate(-50%);
-  }
-}
-
-@media screen and (min-width: 1000px) {
-  .first__test{
-    width: 800px;
   }
 }
 @media screen and (max-width: 500px){
