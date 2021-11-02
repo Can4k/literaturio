@@ -22,14 +22,15 @@
 import MainButton from "@/components/main-button";
 export default {
   name: "test-component",
-  components: {MainButton},
+  components: {
+    MainButton
+  },
   props: {
     testID: Number,
     questionID: Number
   },
   methods: {
     clicked(){
-      /*console.log("clicked");*/
       this.$emit("clicked");
     }
   },
@@ -73,13 +74,14 @@ h5{
   margin: 4px;
   color: darkgreen;
 }
-@media screen and (max-width: 526px){
+@media screen and (max-width: 530px){
   .test__container{
     flex-direction: column;
     justify-content: center;
     align-items: center;
     flex-basis: revert;
-    background: #001341;
+    background: #476479;
+    padding: 20px;
   }
   .form__container{
     width: 150px;

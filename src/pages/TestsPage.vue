@@ -1,41 +1,24 @@
 <template>
   <div class="cont">
     <div class="cont__header">
-      <h1>ТЕСТЫ ПО ЛИТЕРАТУРЕ</h1>
+      <h1>Тесты по литературе</h1>
     </div>
     <div class="cont__tests">
-      <test-component :testID=0 :questionID=0  @clicked="firstClicked">
+      <test-component :testID=0 :questionID=$store.state.testKeys.firstKey  @clicked="openTest(0)">
         <template slot="img">
           <img src="@/assets/dostoevsky.jpg" alt="123" class="image">
         </template>
       </test-component>
-      <test-component :testID=1 :questionID=0  @clicked="secondClicked">
+      <test-component :testID=0 :questionID=$store.state.testKeys.secondKey  @clicked="openTest(1)">
         <template slot="img">
           <img src="@/assets/gogol.jpg" alt="123" class="image">
         </template>
       </test-component>
     </div>
-    <div class="container" v-show="isFirstOpen">
+    <div class="container" v-show="isTestOpen === true">
       <transition name="fade">
-        <div v-show="isFirstOpen" class="question__container">
-            <question
-                :questionID=0
-                :testID=0
-                @next="nextFirst"
-                @close="modalClose"
-            />
-        </div>
-      </transition>
-    </div>
-    <div class="container" v-show="isSecondOpen">
-      <transition name="fade">
-        <div v-show="isSecondOpen" class="question__container">
-          <question
-              :questionID=0
-              :testID=1
-              @next="nextFirst"
-              @close="modalClose"
-          />
+        <div v-show="isTestOpen === true" class="question__container">
+            <question @next="nextTest" @close="isTestOpen=false" :testID="currentTestID"/>
         </div>
       </transition>
     </div>
@@ -56,36 +39,22 @@ export default {
   },
   data() {
     return {
-      isFirstOpen: false,
-      isSecondOpen: false,
+      isTestOpen: false,
       picked: 0,
-      keys: {
-        first: 0,
-        second: 0
-      }
+      currentTestID: 0
     }
   },
   methods: {
-    firstClicked() {
-      if (!this.isSecondOpen){
-        this.isFirstOpen = true;
-      }
+    openTest(testID){
+      this.currentTestID = testID;
+      this.isTestOpen = true;
       window.scrollTo({top: -100, behavior: 'smooth'});
-      this.$emit("close");
     },
-    secondClicked() {
-      if (!this.isFirstOpen) {
-        this.isSecondOpen = true;
-      }
-      window.scrollTo({top: -100, behavior: 'smooth'});
-      this.$emit("close");
-    },
-    nextFirst(data){
-      localStorage.first += data.picked;
-      if(this.keys.first === this.first_test.length - 1){
-
-      } else{
-        this.keys.first++;
+    nextTest(data){
+      console.log(data);
+      if(data.testID === 0){
+        localStorage.first += data.picked;
+        this.$store.state.testKeys[data.testID]++;
       }
     },
     modalClose(data){
@@ -98,14 +67,6 @@ export default {
       }
     }
   },
-  mounted() {
-    if(localStorage.getItem("first") === null){
-      localStorage.first = "";
-    }
-    else if(localStorage.first.length < 3){
-      this.keys.first = localStorage.first.length;
-    }
-  }
 }
 </script>
 
@@ -190,9 +151,15 @@ p::first-letter{
     transform: scale(1, 1) translate(-50%);
   }
 }
-@media screen and (max-width: 500px){
+@media screen and (max-width: 530px){
   .container{
-    height: 300%;
+    height: 200%;
+  }
+  .cont__header{
+    padding: 30px 0 30px 0;
+  }
+  .cont__header h1{
+    font-size: 25px;
   }
 }
 </style>

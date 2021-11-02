@@ -6,6 +6,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     username: "",
+    testKeys: [
+      0, 0
+    ],
     testNamesList: [
       'Преступление и наказание',
       'Война и мир'

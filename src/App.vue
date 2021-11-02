@@ -71,6 +71,13 @@ export default {
   mounted() {
     if (localStorage.getItem("username") === "") this.isNewUser = true;
     else this.username = localStorage.getItem('username');
+    if(localStorage.getItem('first')){
+      this.$store.state.testKeys.firstKey = localStorage.first.length;
+    } else{
+      localStorage.first = "";
+      this.$store.state.testKeys.firstKey = 0;
+    }
+    /*this.$store.state.testKeys.secondKey = localStorage.second.length;*/
   }
 }
 </script>
@@ -151,7 +158,7 @@ h2:hover {
 
 @media screen and (max-width: 580px) {
   h2 {
-    margin: 15px 15px 15px 15px;
+    margin: 20px 15px 20px 15px;
   }
   .buttons__container {
     display: revert;

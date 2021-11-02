@@ -24,7 +24,7 @@ export default {
   color: #001341;
 }
 .menu__button:hover{
+  box-shadow: 0 2px 3px #cdcdcd;
   transform: translate(0, -2px);
-  box-shadow: 0 2px 5px #cdcdcd;
 }
 </style>

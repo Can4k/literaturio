@@ -2,16 +2,16 @@
   <div class="main">
     <div class="container">
       <p class="question__info">{{$store.state.testNamesList[testID]}}</p>
-      <p>{{questionItem.questionText}}</p>
+      <p>{{$store.state.testList[this.testID][this.$store.state.testKeys[this.testID]].questionText}}</p>
       <div class="radio__cont">
         <vs-radio class="radio" v-model="picked" val="1">
-          {{questionItem.answer1}}
+          {{$store.state.testList[this.testID][this.$store.state.testKeys[this.testID]].answer1}}
         </vs-radio>
         <vs-radio class="radio" v-model="picked" val="2">
-          {{questionItem.answer2}}
+          {{$store.state.testList[this.testID][this.$store.state.testKeys[this.testID]].answer2}}
         </vs-radio>
         <vs-radio class="radio" v-model="picked" val="3">
-          {{questionItem.answer3}}
+          {{$store.state.testList[this.testID][this.$store.state.testKeys[this.testID]].answer3}}
         </vs-radio>
       </div>
     </div>
@@ -20,7 +20,7 @@
       <vs-button @click="close" size="small" color="danger">ЗАКРЫТЬ</vs-button>
     </div>
     <p class="question__info">
-      {{questionID + 1}} / 20
+      {{$store.state.testKeys[testID] + 1}} / 20
     </p>
   </div>
 </template>
@@ -30,23 +30,18 @@ export default {
   name: "question",
   props: {
     testID: Number,
-    questionID: Number
   },
   data(){
     return{
       picked: 0,
-      questionItem: {
-        questionText: "",
-        answer1: "",
-        answer2: "",
-        answer3: ""
-      }
+      key: 0,
     }
   },
   methods: {
     next(data){
       this.$emit("next", {
-        picked: this.picked
+        picked: this.picked,
+        testID: this.testID,
       });
     },
     close(){
@@ -55,9 +50,6 @@ export default {
       });
     }
   },
-  mounted() {
-    this.questionItem = this.$store.state.testList[this.testID][this.questionID];
-  }
 }
 </script>
 
