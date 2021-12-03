@@ -19,13 +19,25 @@ export default new Vuex.Store({
           questionText: "Как зовут сестру Раскольникова?",
           answer1: "Софья",
           answer2: "Катирина",
-          answer3: "Авдотья"
+          answer3: "Евдокия"
         },
         {
           questionText: "Сколько лет матери Раскольникова в начала романа?",
           answer1: "43",
           answer2: "45",
           answer3: "53"
+        },
+        {
+          questionText: "Какую профессию должен был получить Раскольников, если бы закончил университет?",
+          answer1: "Медик",
+          answer2: "Физик",
+          answer3: "Юрист"
+        },
+        {
+          questionText: "Кто такой Лужин?",
+          answer1: "Жених сестры раскольникова",
+          answer2: "Школьный друг Раскольникова",
+          answer3: "Старый смотритель тюрьмы"
         }
       ],
       [
@@ -36,7 +48,7 @@ export default new Vuex.Store({
           answer3: "НИКТО"
         },
         {
-          questionText: "КТО ТАКОЙ МШК ФРЭДЭ?",
+          questionText: "КТО ТАКОЙ МИШАК ФРЭДЕРИК?",
           answer1: "МЕЦЕНАТ",
           answer2: "ГЕНИЙ",
           answer3: "МЕЦЕНАТ И ГЕНИЙ"

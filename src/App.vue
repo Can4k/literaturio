@@ -5,15 +5,12 @@
         <h2>Привет! Впервые на нашем сайте? Как тебя зовут?</h2>
       </div>
       <div class="form">
-        <vs-input style='font-family:"Times New Roman", serif' state="success"
-                  v-model="$store.state.username"></vs-input>
-        <vs-button style="font-family: 'Cambria', serif" @click="login">
-          Запомнить
-        </vs-button>
+        <main-input v-model="clogin"></main-input>
+        <main-button class="btn" clr="green" @clicked="login"><b style="font-size: 15px; font-weight: 1000">запомнить</b></main-button>
       </div>
     </vs-dialog>
     <div class="app__header">
-      <h2 @click="toSite('')">LITERATURIO</h2>
+      <img @click="toSite('')" class="header__logo" src="@/assets/logo3.png">
       <span class="buttons__container">
          <img :style="menuNewStyle" class="menu__icon" src="@/assets/menuico.png" @click="menuController"
               alt="Open menu">
@@ -22,8 +19,8 @@
     <transition name="fade">
       <div v-show="isMenuOpen" class="menu__buttons__container">
         <div class="menu__container">
-          <main-button @clicked="toSite('tests')" class="btn">ПРОХОДИТЬ ТЕСТЫ</main-button>
-          <main-button @clicked="toSite('books')" class="btn">ЧИТАТЬ КНИГИ</main-button>
+          <main-button @clicked="toSite('tests')" class="btn"><b style="color: #0000ff;">Проходить тесты</b></main-button>
+          <main-button @clicked="toSite('books')" class="btn"><b style="color: #0000ff;">Читать книги</b></main-button>
         </div>
       </div>
     </transition>
@@ -33,15 +30,17 @@
 
 <script>
 import MainButton from "@/components/main-button";
+import MainInput from "@/components/main-input"
 export default {
-  components: {MainButton},
+  components: {MainInput, MainButton},
   data() {
     return {
       isMenuOpen: false,
       isNewUser: localStorage.getItem("username") === null,
       menuNewStyle: {
         transform: ""
-      }
+      },
+      clogin: ""
     }
   },
   methods: {
@@ -84,14 +83,23 @@ export default {
 
 <style scoped>
 .fade-enter-active {
-  transition: opacity .5s;
-  animation: move .5s;
+  transition: opacity .2s;
+  animation: move .2s;
   transform-origin: top;
 }
 
+h4{
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+}
+
+.btn{
+  display: flex;
+}
+
 .fade-leave-active {
-  transition: opacity .5s;
-  animation: move .5s reverse;
+  transition: opacity .2s;
+  animation: move .2s reverse;
   transform-origin: top;
 }
 
@@ -102,6 +110,7 @@ export default {
 .form {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 @keyframes move {
   0% {
@@ -112,31 +121,35 @@ export default {
   }
 }
 h2 {
-  font-family: roboto, segoe, helvetica, 'open sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin: 25px 0 25px 15px;
   font-weight: 600;
-  font-size: 40px;
+  font-size: 30px;
   text-align: center;
   transition-duration: 0.2s;
   user-select: none;
 }
-h2:hover {
-  transform: translate(0, -5px);
+.header__logo{
+  transition-duration: .2s;
+}
+.header__logo:hover{
+  transform: translate(0, -2px);
 }
 .app__header {
-  background-color: #5e8bff;
   color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  padding: 0 10px 0 10px;
+  padding: 15px 10px 15px 10px;
+}
+.app__bottom{
+  height: 50px;
 }
 .menu__buttons__container {
   font-family: roboto, segoe, helvetica, 'open sans', sans-serif;
-  z-index: 1;
+  z-index: 100;
   position: absolute;
-  background-color: #476479;
   width: 100%;
 }
 .menu__container {
@@ -146,10 +159,12 @@ h2:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #000097;
 }
 .btn  {
   margin-left: 5px;
   margin-right: 5px;
+  font-size: 15px;
 }
 .menu__icon {
   width: 32px;
@@ -190,6 +205,7 @@ a {
 html, body {
   margin: 0;
   padding: 0;
+  background-color: #5e8bff;
 }
 body::-webkit-scrollbar{
   display: none;

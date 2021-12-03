@@ -5,7 +5,7 @@
     </div>
     <div class="app">
       <a target="_blank" href="https://ilibrary.ru/text/78/index.html">
-        <span>
+        <span class="book__cont">
           <img src="@/assets/gogol.jpg" alt="">
           <h3>Мертвые души</h3>
         </span>
@@ -29,10 +29,12 @@ export default {
 
 <style scoped>
 .app {
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: space-around;
   flex-wrap: wrap;
+  background-color: #0046ff;
 }
 
 .cont__header h1{
@@ -45,7 +47,7 @@ export default {
 h3 {
   text-align: center;
   font-size: 20px;
-  color: black;
+  color: white;
   font-family: roboto, segoe, helvetica, 'open sans', sans-serif;
 }
 span{
@@ -59,7 +61,6 @@ span{
   padding: 50px 0 50px 0;
   font-size: 30px;
   box-shadow: 0 0 1px black;
-  margin-bottom: 10px;
 }
 </style>
 

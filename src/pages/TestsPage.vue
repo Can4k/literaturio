@@ -4,12 +4,12 @@
       <h1>Тесты по литературе</h1>
     </div>
     <div class="cont__tests">
-      <test-component :testID=0 :questionID=$store.state.testKeys.firstKey  @clicked="openTest(0)">
+      <test-component :testID=0 :questionID=$store.state.testKeys[0]  @clicked="openTest(0)">
         <template slot="img">
           <img src="@/assets/dostoevsky.jpg" alt="123" class="image">
         </template>
       </test-component>
-      <test-component :testID=0 :questionID=$store.state.testKeys.secondKey  @clicked="openTest(1)">
+      <test-component :testID=1 :questionID=$store.state.testKeys[1]  @clicked="openTest(1)">
         <template slot="img">
           <img src="@/assets/gogol.jpg" alt="123" class="image">
         </template>
@@ -51,11 +51,13 @@ export default {
       window.scrollTo({top: -100, behavior: 'smooth'});
     },
     nextTest(data){
-      console.log(data);
       if(data.testID === 0){
         localStorage.first += data.picked;
-        this.$store.state.testKeys[data.testID]++;
       }
+      if(data.testID === 1){
+        localStorage.second += data.picked;
+      }
+      this.$store.state.testKeys[data.testID]++;
     },
     modalClose(data){
       console.log(data);
@@ -80,19 +82,19 @@ export default {
 
 .cont__header {
   background-color: #f3f3f3;
-  padding: 50px 10px 50px 10px;
+  padding: 20px 10px 20px 10px;
   font-size: 30px;
   box-shadow: 0 0 1px black;
   margin-bottom: 1px;
 }
 
 .cont__tests {
-  background-color: white;
+  background-color: #0046ff;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  z-index: 10;
+  z-index: 5;
 }
 
 p{
@@ -159,7 +161,46 @@ p::first-letter{
     padding: 30px 0 30px 0;
   }
   .cont__header h1{
-    font-size: 25px;
+    font-size: 30px;
+  }
+}
+@media screen and (max-width: 333px){
+  .image{
+    height: 100px;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .question__container {
+    width: 900px;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: 540px) and (max-width: 1000px) {
+  .question__container {
+    width: 500px;
+    align-items: center;
+    justify-content: center;
+  }
+  p{
+    font-size: 20px;
+  }
+  b{
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 540px){
+  .question__container {
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+  }
+  p{
+    font-size: 17px;
+  }
+  b{
+    font-size: 12px;
   }
 }
 </style>
