@@ -171,7 +171,7 @@ p::first-letter{
 }
 @media screen and (min-width: 1000px) {
   .question__container {
-    width: 900px;
+    width: 400px;
     align-items: center;
     justify-content: center;
   }

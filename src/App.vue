@@ -12,7 +12,7 @@
     <div class="app__header">
       <img @click="toSite('')" class="header__logo" src="@/assets/logo3.png">
       <span class="buttons__container">
-         <img :style="menuNewStyle" class="menu__icon" src="@/assets/menuico.png" @click="menuController"
+         <img :style="menuNewStyle" class="menu__icon" :class="isMenuOpen? 'menu_icon_opened' : ''" src="@/assets/menuico.png" @click="menuController"
               alt="Open menu">
       </span>
     </div>
@@ -36,11 +36,10 @@ export default {
   data() {
     return {
       isMenuOpen: false,
-      isNewUser: localStorage.getItem("username") === null,
+      isNewUser: localStorage.getItem("username") !== null,
       menuNewStyle: {
         transform: ""
       },
-      clogin: ""
     }
   },
   methods: {
@@ -54,11 +53,6 @@ export default {
     },
     menuController() {
       this.isMenuOpen = !this.isMenuOpen;
-      if(this.isMenuOpen){
-        this.menuNewStyle.transform = "rotate(90deg)";
-      } else{
-        this.menuNewStyle.transform = "rotate(0deg)";
-      }
     },
     toSite(name) {
       if(this.isMenuOpen){
@@ -135,6 +129,9 @@ h2 {
 .header__logo:hover{
   transform: translate(0, -2px);
 }
+.menu__icon:hover{
+  transform: scale(1.1) rotate(0);
+}
 .app__header {
   color: white;
   display: flex;
@@ -161,14 +158,21 @@ h2 {
   justify-content: center;
   background: #000097;
 }
+.menu_icon_opened{
+  transform: rotate(90deg);
+}
+.menu_icon_opened:hover{
+  transform: rotate(90deg) scale(1.1);
+}
 .btn  {
   margin-left: 5px;
   margin-right: 5px;
   font-size: 15px;
 }
 .menu__icon {
+  cursor: pointer;
   width: 32px;
-  transition-duration: 0.7s;
+  transition-duration: 0.2s;
 }
 
 @media screen and (max-width: 580px) {

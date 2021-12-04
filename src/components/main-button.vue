@@ -36,6 +36,7 @@ export default {
   transition-duration: .2s;
   font-family: roboto, segoe, helvetica, 'open sans', sans-serif;
   display: block;
+  cursor: pointer;
 }
 .menu__button strong{
   color: #476479;

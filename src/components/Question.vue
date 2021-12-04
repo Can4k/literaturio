@@ -113,7 +113,7 @@ h1, h2, h3, h4, h5 {
     justify-content: center;
   }
   .radio__cont{
-    width: 900px;
+    width: 400px;
   }
 }
 
